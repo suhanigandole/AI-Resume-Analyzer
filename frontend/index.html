@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Resume Analyzer</title>
+</head>
+<body>
+
+<h2>Resume Analyzer</h2>
+
+<input type="file" id="resume">
+<br><br>
+
+<textarea id="job_desc" placeholder="Enter job description"></textarea>
+<br><br>
+
+<button onclick="analyze()">Analyze</button>
+
+<h3 id="result"></h3>
+
+<script>
+async function analyze() {
+    let formData = new FormData();
+    formData.append("resume", document.getElementById("resume").files[0]);
+    formData.append("job_desc", document.getElementById("job_desc").value);
+
+    let res = await fetch("http://127.0.0.1:8000/analyze", {
+        method: "POST",
+        body: formData
+    });
+
+    let data = await res.json();
+
+    document.getElementById("result").innerHTML =
+        "ATS Score: " + data.ats_score +
+        "<br>Match: " + data.match_level;
+}
+</script>
+
+</body>
+</html>
+
