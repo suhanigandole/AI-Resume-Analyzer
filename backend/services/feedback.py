@@ -1,17 +1,11 @@
-# Gives AI suggestions
-# Improves resume
+from openai import OpenAI
 
-import openai
+client = OpenAI(api_key="YOUR_API_KEY")
 
 def generate_feedback(resume_text, job_desc):
 
     prompt = f"""
-    You are a resume expert AI.
-
-    Analyze and give:
-    1. Missing skills
-    2. Improvements
-    3. Better resume summary
+    Analyze this resume and suggest improvements.
 
     Resume:
     {resume_text}
@@ -20,9 +14,11 @@ def generate_feedback(resume_text, job_desc):
     {job_desc}
     """
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4o-mini",
-        messages=[{"role": "user", "content": prompt}]
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
     )
 
-    return response["choices"][0]["message"]["content"]
+    return response.choices[0].message.content
