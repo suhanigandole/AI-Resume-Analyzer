@@ -12,12 +12,7 @@
     <input type="file" id="resume">
     <br><br>
 
-    <textarea
-        id="job_desc"
-        placeholder="Enter job description"
-        rows="10"
-        cols="50"
-    ></textarea>
+    <textarea id="job_desc" placeholder="Enter job description" rows="10" cols="50"></textarea>
 
     <br><br>
 
@@ -32,41 +27,25 @@ async function analyze() {
     let fileInput = document.getElementById("resume");
 
     if (fileInput.files.length === 0) {
-
         alert("Please upload resume");
-
         return;
     }
 
     let formData = new FormData();
 
-    formData.append(
-        "resume",
-        fileInput.files[0]
-    );
-
-    formData.append(
-        "job_desc",
-        document.getElementById("job_desc").value
-    );
+    formData.append("resume", fileInput.files[0]);
+    formData.append("job_desc", document.getElementById("job_desc").value);
 
     try {
-
-        let res = await fetch(
-            "http://127.0.0.1:8000/analyze",
-            {
-                method: "POST",
-                body: formData
-            }
-        );
+        let res = await fetch("http://127.0.0.1:8000/analyze", {
+            method: "POST",
+            body: formData
+        });
 
         let data = await res.json();
 
         if (data.error) {
-
-            document.getElementById("result").innerHTML =
-                data.error;
-
+            document.getElementById("result").innerHTML = data.error;
             return;
         }
 
@@ -75,9 +54,7 @@ async function analyze() {
             "<br>Match Level: " + data.match_level;
 
     } catch (error) {
-
         console.log(error);
-
         document.getElementById("result").innerHTML =
             "Backend server not running";
     }

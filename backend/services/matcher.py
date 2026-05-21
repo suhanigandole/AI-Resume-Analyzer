@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import numpy as np
 
 def cosine_similarity(a, b):
@@ -5,6 +6,13 @@ def cosine_similarity(a, b):
     if np.linalg.norm(a) == 0 or np.linalg.norm(b) == 0:
         return 0
 
+=======
+# Compares resume vs job description
+# Gives ATS score
+import numpy as np
+
+def cosine_similarity(a, b):
+>>>>>>> 210088843dd3d6d075a62a811f9a497aa0aa3155
     return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
 
 def ats_score(resume_vec, job_vec):
